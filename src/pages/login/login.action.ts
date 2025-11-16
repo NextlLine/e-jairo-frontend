@@ -1,4 +1,4 @@
-export const loginAction = async (email: string, password: string) => {
+export const loginAction = async (email: string, hash: string) => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
 
     const response = await fetch(`${baseUrl}/auth/sign-in`, {
@@ -6,11 +6,12 @@ export const loginAction = async (email: string, password: string) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, hash }),
     });
 
     if (!response.ok) {
-        throw new Error("Login failed", { cause: await response.text() });
+        const text = await response.text();
+        throw new Error(`Login failed: ${text}`);
     }
 
     return await response.json();
