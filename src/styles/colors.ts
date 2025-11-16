@@ -7,10 +7,8 @@ export const colors = {
   textButton: "#ffffff",
 
   background: "#f7f7f7ff",
-  inputBG: "#f9f9f9",
-
   border: "#ccc",
+
+  inputBG: "#f9f9f9",
   cardBG: "#fff",
-
-
 };

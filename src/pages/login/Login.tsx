@@ -1,8 +1,19 @@
 import { colors } from "@/styles/colors";
 import type { CSSProperties } from "react";
 import logo from "@/styles/assets/logo.png";
+import { loginAction } from "./login.action";
+import React from "react";
 
 export default function LoginPage() {
+  function handleSignIn(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    loginAction(email, password);
+  }
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+
   return (
     <div style={styles.container}>
       <div style={styles.card}>
@@ -10,19 +21,19 @@ export default function LoginPage() {
           <img src={logo} style={styles.logo} />
 
           <p style={styles.title}>Bem-vindo ao E-JAIRO!</p>
-          <p style={styles.subtitle}>Por favor, faça login para continuar.</p>
+          <h1 style={styles.subtitle}>Por favor, faça login para continuar.</h1>
 
           <label style={styles.label}>
             Email
-            <input type="email" style={styles.input} placeholder="Digite seu email" />
+            <input type="email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} style={styles.input} placeholder="Digite seu email" />
           </label>
 
           <label style={styles.label}>
             Senha
-            <input type="password" style={styles.input} placeholder="Digite sua senha" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.currentTarget.value)} style={styles.input} placeholder="Digite sua senha" />
           </label>
 
-          <button type="submit" style={styles.button}>
+          <button type="submit" style={styles.button} onClick={handleSignIn}>
             Entrar
           </button>
         </form>
@@ -86,6 +97,7 @@ const styles: Record<string, CSSProperties> = {
     padding: "10px 12px",
     borderRadius: "8px",
     border: `1px solid ${colors.border}`,
+    color: colors.text,
     background: colors.inputBG,
     fontSize: "14px",
     boxSizing: "border-box",
