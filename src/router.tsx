@@ -10,16 +10,17 @@ import { auth } from "./services/auth";
 import LoginPage from "./pages/login/Login";
 import HomePage from "./pages/home/home";
 import NotFoundPage from "./pages/notFound/NotFound";
+import RegisterPage from "./pages/register/Register";
 
 async function privateLoader() {
   const isLogged = await auth.isAuthenticated();
-  if (!isLogged) return redirect("/login");
+  if (!isLogged) return redirect("/");
   return null;
 }
 
 async function publicLoader() {
   const isLogged = await auth.isAuthenticated();
-  if (isLogged) return redirect("/");
+  if (isLogged) return redirect("/home");
   return null;
 }
 
@@ -28,7 +29,8 @@ export const router = createBrowserRouter([
     element: <PublicLayout />,
     loader: publicLoader,
     children: [
-      { path: "/login", element: <LoginPage /> },
+      { index: true, element: <LoginPage /> },
+      { path: "register", element: <RegisterPage /> },
     ],
   },
 
@@ -36,7 +38,7 @@ export const router = createBrowserRouter([
     element: <PrivateLayout />,
     loader: privateLoader,
     children: [
-      { index: true, element: <HomePage /> }, 
+      { path: "home", element: <HomePage /> }, 
     ],
   },
 

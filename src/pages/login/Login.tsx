@@ -3,16 +3,18 @@ import type { CSSProperties } from "react";
 import logo from "@/styles/assets/logo.png";
 import { loginAction } from "./login.action";
 import React from "react";
+import { router } from "@/router";
 
 export default function LoginPage() {
-  function handleSignIn(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
+  function handleSignIn() {
     loginAction(email, password);
+  }
+  function handleSignUp() {
+    router.navigate("/register");
   }
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-
 
   return (
     <div style={styles.container}>
@@ -33,9 +35,16 @@ export default function LoginPage() {
             <input type="password" value={password} onChange={(e) => setPassword(e.currentTarget.value)} style={styles.input} placeholder="Digite sua senha" />
           </label>
 
-          <button type="submit" style={styles.button} onClick={handleSignIn}>
+          <button type="button" style={styles.button} onClick={handleSignIn}>
             Entrar
           </button>
+
+          <label style={{ ...styles.label, flexDirection: "row" }}>
+            Não tem uma conta?
+            <button style={styles.registerButton} onClick={handleSignUp}>
+              Cadastre-se
+            </button>
+          </label>
         </form>
       </div>
     </div>
@@ -63,7 +72,7 @@ const styles: Record<string, CSSProperties> = {
   form: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center", 
+    alignItems: "center",
     gap: "16px",
     width: "100%",
   },
@@ -112,6 +121,16 @@ const styles: Record<string, CSSProperties> = {
     fontSize: "16px",
     fontWeight: 600,
     cursor: "pointer",
-    width: "100%", 
+    width: "100%",
   },
+  registerButton: {
+    background: "none",
+    border: "none",
+    color: colors.primary,
+    marginLeft: "4px",
+    cursor: "pointer",
+    padding: 0,
+    fontSize: "14px",
+    fontWeight: 500,
+  }
 };
