@@ -1,0 +1,36 @@
+src/
+│
+├─ api/
+│   ├─ axios.ts
+│   └─ auth.ts          // funções para login, refresh, etc.
+│
+├─ auth/
+│   ├─ auth.loader.ts   // loader que valida sessão antes da rota
+│   ├─ auth.actions.ts  // ação de login/logout
+│   ├─ AuthProvider.tsx // contexto opcional (ex: armazenar usuário)
+│   └─ useAuth.ts
+│
+├─ routes/
+│   ├─ router.tsx        // createBrowserRouter aqui
+│   ├─ protected.tsx     // componente de rota privada
+│   └─ public.tsx        // rota pública
+│
+├─ pages/
+│   ├─ login/
+│   │    ├─ Login.tsx
+│   │    └─ login.action.ts
+│   ├─ home/
+│   │    ├─ Home.tsx
+│   │    └─ home.loader.ts
+│   └─ error/
+│        └─ ErrorPage.tsx
+│
+├─ components/
+│   ├─ Header.tsx
+│   ├─ Sidebar.tsx
+│   └─ Loading.tsx
+│
+├─ styles/
+│   └─ global.css
+│
+└─ main.tsx
