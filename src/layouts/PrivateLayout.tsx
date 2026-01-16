@@ -5,8 +5,8 @@ export default function PrivateLayout() {
   const navigate = useNavigate();
 
   function handleLogout() {
-    auth.logout();
-    navigate("/login", { replace: true });
+    auth.signOut();
+    navigate("/signin", { replace: true });
   }
 
   return (

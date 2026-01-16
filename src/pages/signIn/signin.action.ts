@@ -1,19 +1,19 @@
 import { router } from "@/router";
 
-export const loginAction = async (email: string, hash: string) => {
+export const signInAction = async (email: string, password: string) => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
 
-    const response = await fetch(`${baseUrl}/auth/sign-in`, {
+    const response = await fetch(`${baseUrl}/auth/signin`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, hash }),
+        body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {
         const text = await response.text();
-        throw new Error(`Login failed: ${text}`);
+        throw new Error(`Sign in failed: ${text}`);
     }
     
     router.navigate("/home");

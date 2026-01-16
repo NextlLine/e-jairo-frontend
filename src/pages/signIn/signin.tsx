@@ -1,16 +1,16 @@
 import { colors } from "@/styles/colors";
 import type { CSSProperties } from "react";
 import logo from "@/styles/assets/logo.png";
-import { loginAction } from "./login.action";
+import { signInAction } from "./signin.action";
 import React from "react";
 import { router } from "@/router";
 
-export default function LoginPage() {
+export default function SignInPage() {
   function handleSignIn() {
-    loginAction(email, password);
+    signInAction(email, password);
   }
   function handleSignUp() {
-    router.navigate("/register");
+    router.navigate("/signup");
   }
 
   const [email, setEmail] = React.useState('');

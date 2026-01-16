@@ -1,13 +1,13 @@
 import { router } from "@/router";
-import { registerAction } from "./register.action";
+import { signUpAction } from "./signup.action";
 import React, { type CSSProperties } from "react";
 import { colors } from "@/styles/colors";
 import logo from "@/styles/assets/logo.png";
 
-export default function RegisterPage() {
+export default function SignUpPage() {
 
     function handleSignUp() {
-        registerAction(email, password, confirmPassword);
+        signUpAction(email, password, confirmPassword);
     }
     function handleSignIn() {
         router.navigate("/");
@@ -15,7 +15,7 @@ export default function RegisterPage() {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [confirmPassword, setConfirmPassword] = React.useState('');
+    const [confirmPassword, setConfirmHash] = React.useState('');
     const [corem, setCorem] = React.useState('');
 
 
@@ -42,7 +42,7 @@ export default function RegisterPage() {
 
                     <label style={styles.label}>
                         Confirmar Senha
-                        <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.currentTarget.value)} style={styles.input} placeholder="Confirme sua senha" />
+                        <input type="password" value={confirmPassword} onChange={(e) => setConfirmHash(e.currentTarget.value)} style={styles.input} placeholder="Confirme sua senha" />
                     </label>
 
                     <button type="button" style={styles.button} onClick={handleSignUp}>

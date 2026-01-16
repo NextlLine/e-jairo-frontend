@@ -7,10 +7,10 @@ import PublicLayout from "./layouts/PublicLayout";
 import PrivateLayout from "./layouts/PrivateLayout";
 
 import { auth } from "./services/auth";
-import LoginPage from "./pages/login/Login";
+import SignInPage from "./pages/signIn/signin";
 import HomePage from "./pages/home/home";
 import NotFoundPage from "./pages/notFound/NotFound";
-import RegisterPage from "./pages/register/Register";
+import SignUpPage from "./pages/signUp/signup";
 
 async function privateLoader() {
   const isLogged = await auth.isAuthenticated();
@@ -29,8 +29,8 @@ export const router = createBrowserRouter([
     element: <PublicLayout />,
     loader: publicLoader,
     children: [
-      { index: true, element: <LoginPage /> },
-      { path: "register", element: <RegisterPage /> },
+      { index: true, element: <SignInPage /> },
+      { path: "signup", element: <SignUpPage /> },
     ],
   },
 
