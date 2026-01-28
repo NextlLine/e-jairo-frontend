@@ -4,11 +4,11 @@ export const auth = {
     return !!token;
   },
 
-  login(token: string) {
+  signIn(token: string) {
     localStorage.setItem("token", token);
   },
 
-  logout() {
+  signOut() {
     localStorage.removeItem("token");
   },
 };

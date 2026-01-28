@@ -1,0 +1,54 @@
+
+export const signUpAction = async (
+    email: string,
+    password: string,
+    confirmPassword: string,
+    name: string,
+    teamId: string,
+) => {
+    if (!email || !password || !confirmPassword || !name || !teamId) {
+        throw new Error("Preencha todos os campos");
+    }
+
+    if (password !== confirmPassword) {
+        throw new Error("As senhas não coincidem");
+    }
+
+    if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
+        throw new Error(
+            "A senha deve ter no mínimo 8 caracteres, incluindo letras, números e simbolos",
+        );
+    }
+
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
+    const response = await fetch(`${baseUrl}/auth/signup`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email,
+            password,
+            name,
+            teamId,
+        }),
+    });
+
+    if (!response.ok) {
+        let errorMessage = "Erro ao criar conta";
+
+        try {
+            const data = await response.json();
+
+            if (data?.message) {
+                errorMessage = data.message.replace(/^.*?:\s*/, "");
+            }
+        } catch {
+            errorMessage = await response.text();
+        }
+
+
+        throw new Error(errorMessage);
+    }
+};
