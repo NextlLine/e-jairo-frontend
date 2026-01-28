@@ -1,4 +1,3 @@
-import { router } from "@/router";
 
 export const signUpAction = async (
     email: string,
@@ -13,6 +12,12 @@ export const signUpAction = async (
 
     if (password !== confirmPassword) {
         throw new Error("As senhas não coincidem");
+    }
+
+    if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
+        throw new Error(
+            "A senha deve ter no mínimo 8 caracteres, incluindo letras, números e simbolos",
+        );
     }
 
     const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -31,9 +36,19 @@ export const signUpAction = async (
     });
 
     if (!response.ok) {
-        await response.text();
-        throw new Error("Erro ao criar conta");
-    }
+        let errorMessage = "Erro ao criar conta";
 
-    router.navigate("/auth/confirmCode");
+        try {
+            const data = await response.json();
+
+            if (data?.message) {
+                errorMessage = data.message.replace(/^.*?:\s*/, "");
+            }
+        } catch {
+            errorMessage = await response.text();
+        }
+
+
+        throw new Error(errorMessage);
+    }
 };

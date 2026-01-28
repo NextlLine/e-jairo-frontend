@@ -1,9 +1,7 @@
 import React from "react";
 import { router } from "@/router";
 import { signUpAction } from "./signup.action";
-import { colors } from "@/styles/colors";
 import logo from "@/styles/assets/logo.png";
-import type { CSSProperties } from "react";
 import { customStyle } from "@/styles/custom-style";
 
 export default function SignUpPage() {
@@ -22,7 +20,8 @@ export default function SignUpPage() {
 
       await signUpAction(email, password, confirmPassword, name, teamId);
 
-      router.navigate("/home");
+      router.navigate("/confirm-code", { state: { email } });
+
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro inesperado");
     } finally {

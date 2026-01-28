@@ -1,3 +1,6 @@
+import { router } from "@/router";
+import { auth } from "@/services/auth";
+
 export const signInAction = async (email: string, password: string) => {
   if (!email || !password) {
     throw new Error("Email e senha são obrigatórios");
@@ -14,9 +17,16 @@ export const signInAction = async (email: string, password: string) => {
   });
 
   if (!response.ok) {
-    await response.text();
-    throw new Error( "Falha ao realizar login");
+    throw new Error("Falha ao realizar login");
   }
 
-  return await response.json();
+  const data = await response.json();
+
+  const accessToken = data.authenticationResult?.AccessToken;
+
+  if (!accessToken) {
+    throw new Error("Token não recebido do servidor");
+  }
+
+  auth.signIn(accessToken);
 };

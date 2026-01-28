@@ -3,10 +3,15 @@ import { router } from "@/router";
 import { confirmCodeAction } from "./confirm-code.action";
 import { customStyle } from "@/styles/custom-style";
 import logo from "@/styles/assets/logo.png";
+import { useLocation } from "react-router-dom";
 
 export default function ConfirmCodePage() {
-  const [email, setEmail] = React.useState("");
+  const location = useLocation();
+  const emailFromState = (location.state as { email?: string })?.email;
+
+  const [email, setEmail] = React.useState(emailFromState || "");
   const [code, setCode] = React.useState("");
+
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
 
@@ -35,17 +40,19 @@ export default function ConfirmCodePage() {
           <img src={logo} style={customStyle.logo} />
           <h2 style={customStyle.title}>Confirmar conta</h2>
 
-          <label style={customStyle.label}>
-            Email
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-              style={customStyle.input}
-              placeholder="Digite seu email"
-              autoComplete="email"
-            />
-          </label>
+          {!emailFromState && (
+            <label style={customStyle.label}>
+              Email
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.currentTarget.value)}
+                style={customStyle.input}
+                placeholder="Digite seu email"
+                autoComplete="email"
+              />
+            </label>
+          )}
 
           <label style={customStyle.label}>
             Código de confirmação
