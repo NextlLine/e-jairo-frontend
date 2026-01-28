@@ -1,3 +1,4 @@
+import { router } from "@/router";
 import { auth } from "@/services/auth";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -6,7 +7,7 @@ export default function PrivateLayout() {
 
   function handleLogout() {
     auth.signOut();
-    navigate("/signin", { replace: true });
+    router.navigate("/")
   }
 
   return (
