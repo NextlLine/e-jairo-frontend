@@ -22,7 +22,7 @@ export default function SignInPage() {
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro inesperado");
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
   }
 
