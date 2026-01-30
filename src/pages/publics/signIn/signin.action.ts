@@ -1,4 +1,3 @@
-import { router } from "@/router";
 import { auth } from "@/services/auth";
 
 export const signInAction = async (email: string, password: string) => {
