@@ -34,7 +34,6 @@ jobs:
         env:
           VITE_BASE_URL: ${{ secrets.BACKEND_BASE_URL }}
 
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
