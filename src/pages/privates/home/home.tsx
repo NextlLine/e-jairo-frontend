@@ -14,12 +14,11 @@ import {
   FaBell,
   FaSearch,
 } from "react-icons/fa";
+import { Card, IconCard } from "@/components/card";
 
 export default function HomePage() {
   return (
-    <div style={styles.container}>
-      <h1 style={customStyle.title}>Dashboard E-JAIRO</h1>
-
+    <div style={customStyle.page}>
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}><FaBell /> Avisos</h2>
         <div style={styles.cardRow}>
@@ -69,29 +68,7 @@ export default function HomePage() {
   );
 }
 
-function IconCard({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <div style={styles.iconCard}>
-      <div style={styles.icon}>{icon}</div>
-      <span style={styles.iconLabel}>{label}</span>
-    </div>
-  );
-}
-
-function Card({ label }: { label: string }) {
-  return <div style={styles.simpleCard}>{label}</div>;
-}
-
 const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: 20,
-    background: colors.background,
-    minHeight: "100vh",
-    width: "100vw",
-    boxSizing: "border-box",
-    overflowX: "hidden",
-    scrollbarWidth: "none",
-  },
   section: {
     marginBottom: 40,
   },
@@ -106,16 +83,6 @@ const styles: Record<string, React.CSSProperties> = {
   cardRow: {
     display: "flex",
     gap: 20,
-  },
-  simpleCard: {
-    background: colors.cardBG,
-    padding: 20,
-    borderRadius: 12,
-    border: `1px solid ${colors.border}`,
-    boxShadow: "0 2px 6px rgba(15, 23, 42, 0.05)",
-    minWidth: 200,
-    fontWeight: 600,
-    color: colors.text,
   },
   searchBox: {
     display: "flex",
@@ -145,26 +112,5 @@ const styles: Record<string, React.CSSProperties> = {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
     gap: 20,
-  },
-  iconCard: {
-    background: `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`,
-    color: colors.textButton,
-    borderRadius: 14,
-    padding: 20,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 120,
-    boxShadow: "0 6px 14px rgba(37, 99, 235, 0.25)",
-    cursor: "pointer",
-  },
-  icon: {
-    fontSize: 30,
-    marginBottom: 10,
-  },
-  iconLabel: {
-    fontWeight: 600,
-    textAlign: "center",
   },
 };

@@ -2,8 +2,8 @@ import React from "react";
 import { router } from "@/router";
 import { confirmCodeAction } from "./confirm-code.action";
 import { customStyle } from "@/styles/custom-style";
-import logo from "@/styles/assets/logo.png";
 import { useLocation } from "react-router-dom";
+import  Favicon  from "../../../../public/favicon.png";
 
 export default function ConfirmCodePage() {
   const location = useLocation();
@@ -31,13 +31,13 @@ export default function ConfirmCodePage() {
   }
 
   return (
-    <div style={customStyle.container}>
+    <div style={customStyle.containerCenter}>
       <div style={customStyle.card}>
         <form
           style={customStyle.form}
           onSubmit={(e) => e.preventDefault()}
         >
-          <img src={logo} style={customStyle.logo} />
+          <img src={Favicon} style={customStyle.logo} />
           <h2 style={customStyle.title}>Confirmar conta</h2>
 
           {!emailFromState && (
