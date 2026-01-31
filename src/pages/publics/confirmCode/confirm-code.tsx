@@ -3,7 +3,7 @@ import { router } from "@/router";
 import { confirmCodeAction } from "./confirm-code.action";
 import { customStyle } from "@/styles/custom-style";
 import { useLocation } from "react-router-dom";
-import  Favicon  from "../../../../public/favicon.png";
+import Favicon from "../../../../public/favicon.png";
 
 export default function ConfirmCodePage() {
   const location = useLocation();
@@ -32,51 +32,49 @@ export default function ConfirmCodePage() {
 
   return (
     <div style={customStyle.containerCenter}>
-      <div style={customStyle.card}>
-        <form
-          style={customStyle.form}
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <img src={Favicon} style={customStyle.logo} />
-          <h2 style={customStyle.title}>Confirmar conta</h2>
+      <form
+        style={customStyle.form}
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <img src={Favicon} style={customStyle.logo} />
+        <h2 style={customStyle.title}>Confirmar conta</h2>
 
-          {!emailFromState && (
-            <label style={customStyle.label}>
-              Email
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
-                style={customStyle.input}
-                placeholder="Digite seu email"
-                autoComplete="email"
-              />
-            </label>
-          )}
-
+        {!emailFromState && (
           <label style={customStyle.label}>
-            Código de confirmação
+            Email
             <input
-              type="text"
-              value={code}
-              onChange={(e) => setCode(e.currentTarget.value)}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
               style={customStyle.input}
-              placeholder="Digite o código recebido"
+              placeholder="Digite seu email"
+              autoComplete="email"
             />
           </label>
+        )}
 
-          {error && <div style={customStyle.error}>{error}</div>}
+        <label style={customStyle.label}>
+          Código de confirmação
+          <input
+            type="text"
+            value={code}
+            onChange={(e) => setCode(e.currentTarget.value)}
+            style={customStyle.input}
+            placeholder="Digite o código recebido"
+          />
+        </label>
 
-          <button
-            type="button"
-            style={{ ...customStyle.button, opacity: loading ? 0.7 : 1 }}
-            onClick={handleConfirm}
-            disabled={loading}
-          >
-            {loading ? "Confirmando..." : "Confirmar"}
-          </button>
-        </form>
-      </div>
+        {error && <div style={customStyle.error}>{error}</div>}
+
+        <button
+          type="button"
+          style={{ ...customStyle.button, opacity: loading ? 0.7 : 1 }}
+          onClick={handleConfirm}
+          disabled={loading}
+        >
+          {loading ? "Confirmando..." : "Confirmar"}
+        </button>
+      </form>
     </div>
   );
 }

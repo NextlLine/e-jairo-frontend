@@ -14,7 +14,6 @@ const styles: Record<string, React.CSSProperties> = {
     minHeight: "100vh",
     width: "100vw",
     background: colors.background,
-
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

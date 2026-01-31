@@ -2,7 +2,7 @@ import React from "react";
 import { router } from "@/router";
 import { signUpAction } from "./signup.action";
 import { customStyle } from "@/styles/custom-style";
-import  Favicon  from "../../../../public/favicon.png";
+import Favicon from "../../../../public/favicon.png";
 
 export default function SignUpPage() {
   const [email, setEmail] = React.useState("");
@@ -35,97 +35,95 @@ export default function SignUpPage() {
 
   return (
     <div style={customStyle.containerCenter}>
-      <div style={customStyle.card}>
-        <form
-          style={customStyle.form}
-          onSubmit={(e) => e.preventDefault()}
-          autoComplete="on"
+      <form
+        style={customStyle.form}
+        onSubmit={(e) => e.preventDefault()}
+        autoComplete="on"
+      >
+        <img src={Favicon} style={customStyle.logo} />
+
+        <label style={customStyle.label}>
+          Team ID
+          <input
+            type="text"
+            value={teamId}
+            onChange={(e) => setTeamId(e.currentTarget.value)}
+            style={customStyle.input}
+            placeholder="Digite o ID do time"
+            autoComplete="off"
+          />
+        </label>
+
+        <label style={customStyle.label}>
+          Email
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.currentTarget.value)}
+            style={customStyle.input}
+            placeholder="Digite seu email"
+            autoComplete="email"
+          />
+        </label>
+
+        <label style={customStyle.label}>
+          Nome
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.currentTarget.value)}
+            style={customStyle.input}
+            placeholder="Digite seu nome"
+            autoComplete="name"
+          />
+        </label>
+
+        <label style={customStyle.label}>
+          Senha
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.currentTarget.value)}
+            style={customStyle.input}
+            placeholder="Digite sua senha"
+            autoComplete="new-password"
+          />
+        </label>
+
+        <label style={customStyle.label}>
+          Confirmar senha
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.currentTarget.value)}
+            style={customStyle.input}
+            placeholder="Confirme sua senha"
+            autoComplete="new-password"
+          />
+        </label>
+
+        {error && <div style={customStyle.error}>{error}</div>}
+
+        <button
+          type="button"
+          style={{ ...customStyle.button, opacity: loading ? 0.7 : 1 }}
+          onClick={handleSignUp}
+          disabled={loading}
         >
-          <img src={Favicon} style={customStyle.logo} />
+          {loading ? "Criando conta..." : "Cadastrar"}
+        </button>
 
-          <label style={customStyle.label}>
-            Team ID
-            <input
-              type="text"
-              value={teamId}
-              onChange={(e) => setTeamId(e.currentTarget.value)}
-              style={customStyle.input}
-              placeholder="Digite o ID do time"
-              autoComplete="off"
-            />
-          </label>
-
-          <label style={customStyle.label}>
-            Email
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-              style={customStyle.input}
-              placeholder="Digite seu email"
-              autoComplete="email"
-            />
-          </label>
-
-          <label style={customStyle.label}>
-            Nome
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.currentTarget.value)}
-              style={customStyle.input}
-              placeholder="Digite seu nome"
-              autoComplete="name"
-            />
-          </label>
-
-          <label style={customStyle.label}>
-            Senha
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-              style={customStyle.input}
-              placeholder="Digite sua senha"
-              autoComplete="new-password"
-            />
-          </label>
-
-          <label style={customStyle.label}>
-            Confirmar senha
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.currentTarget.value)}
-              style={customStyle.input}
-              placeholder="Confirme sua senha"
-              autoComplete="new-password"
-            />
-          </label>
-
-          {error && <div style={customStyle.error}>{error}</div>}
-
+        <div style={customStyle.footer}>
+          <span>Já tem uma conta?</span>
           <button
             type="button"
-            style={{ ...customStyle.button, opacity: loading ? 0.7 : 1 }}
-            onClick={handleSignUp}
-            disabled={loading}
+            style={customStyle.primaryButton}
+            onClick={handleSignIn}
           >
-            {loading ? "Criando conta..." : "Cadastrar"}
+            Entrar
           </button>
-
-          <div style={customStyle.footer}>
-            <span>Já tem uma conta?</span>
-            <button
-              type="button"
-              style={customStyle.primaryButton}
-              onClick={handleSignIn}
-            >
-              Entrar
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }

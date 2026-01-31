@@ -3,7 +3,7 @@ import { router } from "@/router";
 import { signInAction } from "./signin.action";
 import { customStyle } from "@/styles/custom-style";
 import { colors } from "@/styles/colors";
-import  Favicon  from "../../../../public/favicon.png";
+import Favicon from "../../../../public/favicon.png";
 
 export default function SignInPage() {
   const [email, setEmail] = React.useState("");
@@ -22,7 +22,7 @@ export default function SignInPage() {
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro inesperado");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   }
 
@@ -32,66 +32,64 @@ export default function SignInPage() {
 
   return (
     <div style={customStyle.containerCenter}>
-      <div style={customStyle.card}>
-        <form
-          style={customStyle.form}
-          onSubmit={(e) => e.preventDefault()}
-          autoComplete="on"
+      <form
+        style={customStyle.form}
+        onSubmit={(e) => e.preventDefault()}
+        autoComplete="on"
+      >
+        <img src={Favicon} style={customStyle.logo} />
+
+        <h1 style={customStyle.title}>
+          Bem-vindo ao <span style={style.titleSpan}>E-JAIRO</span>
+        </h1>
+
+
+        <label style={customStyle.label}>
+          Email
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.currentTarget.value)}
+            style={customStyle.input}
+            placeholder="Digite seu email"
+            autoComplete="email"
+          />
+        </label>
+
+        <label style={customStyle.label}>
+          Senha
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.currentTarget.value)}
+            style={customStyle.input}
+            placeholder="Digite sua senha"
+            autoComplete="current-password"
+          />
+        </label>
+
+        {error && <div style={customStyle.error}>{error}</div>}
+
+        <button
+          type="button"
+          style={{ ...customStyle.button, opacity: loading ? 0.7 : 1 }}
+          onClick={handleSignIn}
+          disabled={loading}
         >
-          <img src={Favicon} style={customStyle.logo} />
+          {loading ? "Entrando..." : "Entrar"}
+        </button>
 
-          <h1 style={customStyle.title}>
-            Bem-vindo ao <span style={style.titleSpan}>E-JAIRO</span>
-          </h1>
-
-
-          <label style={customStyle.label}>
-            Email
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-              style={customStyle.input}
-              placeholder="Digite seu email"
-              autoComplete="email"
-            />
-          </label>
-
-          <label style={customStyle.label}>
-            Senha
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-              style={customStyle.input}
-              placeholder="Digite sua senha"
-              autoComplete="current-password"
-            />
-          </label>
-
-          {error && <div style={customStyle.error}>{error}</div>}
-
+        <div style={customStyle.footer}>
+          <span>Não tem uma conta?</span>
           <button
             type="button"
-            style={{ ...customStyle.button, opacity: loading ? 0.7 : 1 }}
-            onClick={handleSignIn}
-            disabled={loading}
+            style={customStyle.primaryButton}
+            onClick={handleSignUp}
           >
-            {loading ? "Entrando..." : "Entrar"}
+            Cadastre-se
           </button>
-
-          <div style={customStyle.footer}>
-            <span>Não tem uma conta?</span>
-            <button
-              type="button"
-              style={customStyle.primaryButton}
-              onClick={handleSignUp}
-            >
-              Cadastre-se
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }

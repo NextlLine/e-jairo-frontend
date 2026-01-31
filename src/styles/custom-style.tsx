@@ -3,28 +3,24 @@ import { colors } from "./colors";
 
 export const customStyle: Record<string, CSSProperties> = {
   containerCenter: {
-  width: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-},
-page: {
-  width: "100%",
-  minHeight: "100vh",
-  padding: "32px",
-  boxSizing: "border-box",
-  background: colors.background,
-},
-//   card: {
-//   width: "100%",
-//   maxWidth: 420,
-//   padding: "32px",
-//   borderRadius: "12px",
-//   background: colors.cardBG,
-//   boxShadow: "0 0 20px rgba(0,0,0,0.08)",
-//   textAlign: "center",
-// },
-
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: "0 0 20px rgba(0,0,0,0.08)",
+    background: colors.cardBG,
+    padding: "5%",
+    borderRadius: "12px",
+    maxWidth: 420,
+    textAlign: "center",
+  },
+  page: {
+    width: "100%",
+    minHeight: "100vh",
+    padding: "32px",
+    boxSizing: "border-box",
+    background: colors.background,
+  },
   form: {
     display: "flex",
     flexDirection: "column",
