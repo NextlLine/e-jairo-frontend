@@ -1,8 +1,8 @@
 import React from "react";
 import { router } from "@/router";
 import { signUpAction } from "./signup.action";
-import logo from "@/styles/assets/logo.png";
 import { customStyle } from "@/styles/custom-style";
+import  Favicon  from "../../../../public/favicon.png";
 
 export default function SignUpPage() {
   const [email, setEmail] = React.useState("");
@@ -34,14 +34,14 @@ export default function SignUpPage() {
   }
 
   return (
-    <div style={customStyle.container}>
+    <div style={customStyle.containerCenter}>
       <div style={customStyle.card}>
         <form
           style={customStyle.form}
           onSubmit={(e) => e.preventDefault()}
           autoComplete="on"
         >
-          <img src={logo} style={customStyle.logo} />
+          <img src={Favicon} style={customStyle.logo} />
 
           <label style={customStyle.label}>
             Team ID

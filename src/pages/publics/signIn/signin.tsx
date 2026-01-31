@@ -1,9 +1,9 @@
 import React, { type CSSProperties } from "react";
 import { router } from "@/router";
 import { signInAction } from "./signin.action";
-import logo from "@/styles/assets/logo.png";
 import { customStyle } from "@/styles/custom-style";
 import { colors } from "@/styles/colors";
+import  Favicon  from "../../../../public/favicon.png";
 
 export default function SignInPage() {
   const [email, setEmail] = React.useState("");
@@ -31,14 +31,14 @@ export default function SignInPage() {
   }
 
   return (
-    <div style={customStyle.container}>
+    <div style={customStyle.containerCenter}>
       <div style={customStyle.card}>
         <form
           style={customStyle.form}
           onSubmit={(e) => e.preventDefault()}
           autoComplete="on"
         >
-          <img src={logo} style={customStyle.logo} />
+          <img src={Favicon} style={customStyle.logo} />
 
           <h1 style={customStyle.title}>
             Bem-vindo ao <span style={style.titleSpan}>E-JAIRO</span>

@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
   ],
   server: {
-    allowedHosts: ['24edb055fd3b.ngrok-free.app'],
+    allowedHosts: [],
   },
   resolve: {
     alias: {

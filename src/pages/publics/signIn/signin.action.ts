@@ -1,9 +1,18 @@
 import { auth } from "@/services/auth";
+import { z } from "zod";
+
+const signInSchema = z.object({
+  email: z.string().email("Email inválido"),
+  password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
+});
+
 
 export const signInAction = async (email: string, password: string) => {
-  if (!email || !password) {
-    throw new Error("Email e senha são obrigatórios");
-  }
+  const parsed = signInSchema.safeParse({ email, password });
+
+if (!parsed.success) {
+  throw new Error(parsed.error.issues[0].message);
+}
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
