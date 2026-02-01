@@ -11,11 +11,11 @@ export default function PublicLayout() {
 
 const styles: Record<string, React.CSSProperties> = {
   app: {
-    minHeight: "100vh",
-    width: "100vw",
-    background: colors.background,
+    minHeight: "100dvh",
+    width: "100%",
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "column",
+    background: colors.background,
   },
+
 };
