@@ -16,8 +16,8 @@ export default function PrivateLayout() {
 
 const styles: Record<string, CSSProperties> = {
   app: {
-    minHeight: "100dvh",
-    width: "100%",
+    height: "100dvh",
+    width: "100dvw",
     display: "flex",
     flexDirection: "column",
     background: colors.background,
