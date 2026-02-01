@@ -12,10 +12,10 @@ export default function PublicLayout() {
 const styles: Record<string, React.CSSProperties> = {
   app: {
     minHeight: "100dvh",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
+    width: "100vw",
     background: colors.background,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
-
 };
