@@ -16,8 +16,8 @@ export const customStyle: Record<string, CSSProperties> = {
   },
   page: {
     width: "100%",
-    minHeight: "100vh",
-    padding: "32px",
+    // padding: "32px",
+    padding: 20,
     boxSizing: "border-box",
     background: colors.background,
   },

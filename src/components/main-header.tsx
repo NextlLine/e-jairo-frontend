@@ -17,28 +17,36 @@ export function MainHeader() {
     }
 
     const handleProtocolClick = () => {
-        window.open("https://www.saude.df.gov.br/web/guest/busca?q=protocolos+aprovados", "_blank");
+        window.open(
+            "https://www.saude.df.gov.br/web/guest/busca?q=protocolos+aprovados",
+            "_blank"
+        );
     };
+
     return (
         <header style={styles.header}>
-            <div style={styles.headerContent}>
-                <section style={styles.section}>
-                    <IconButton icon={<FaFilePdf />} label="PDFs" />
-                    <IconButton icon={<FaPills />} label="Pedidos" />
-                    <IconButton icon={<FaMapMarkedAlt />} label="Endereços UBSs" />
-                    <IconButton
-                        icon={<FaBookMedical />}
-                        label="Protocolos Saúde-DF"
-                        onClick={handleProtocolClick}
-                    />
-                </section>
+            <div style={styles.topRow}>
+                <div style={styles.logo}>E-JAIRO</div>
 
                 <button style={styles.logoutButton} onClick={handleLogout}>
                     Sair
                 </button>
             </div>
+
+            <div style={styles.shortcutsWrapper}>
+                <div style={styles.shortcutsScroll}>
+                    <IconButton icon={<FaFilePdf />} label="PDFs" />
+                    <IconButton icon={<FaPills />} label="Pedidos" />
+                    <IconButton icon={<FaMapMarkedAlt />} label="UBSs" />
+                    <IconButton
+                        icon={<FaBookMedical />}
+                        label="Protocolos"
+                        onClick={handleProtocolClick}
+                    />
+                </div>
+            </div>
         </header>
-    )
+    );
 }
 
 const styles: Record<string, CSSProperties> = {
@@ -46,43 +54,39 @@ const styles: Record<string, CSSProperties> = {
         width: "100%",
         borderBottom: `1px solid ${colors.border}`,
         background: colors.cardBG,
+        display: "flex",
+        flexDirection: "column",
     },
-    headerContent: {
-        maxWidth: 1400,
-        margin: "0 auto",
-        padding: "16px 24px",
+    topRow: {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        gap: 20,
-        flexWrap: "wrap",
+        padding: "12px 20px",
+    },
+    logo: {
+        fontSize: 20,
+        fontWeight: 800,
+        color: colors.primaryDark,
+        letterSpacing: 1,
     },
     logoutButton: {
         backgroundColor: colors.danger,
         color: colors.textButton,
         border: "none",
-        padding: "10px 16px",
+        padding: "8px 14px",
         borderRadius: 8,
         cursor: "pointer",
         fontWeight: 600,
-        height: 42,
     },
-    section: {
+    shortcutsWrapper: {
+        // borderTop: `1px solid ${colors.border}`,
+        padding: "10px 0",
+    },
+    shortcutsScroll: {
         display: "flex",
-        alignItems: "center",
         gap: 12,
-    },
-    sectionTitle: {
-        marginBottom: 12,
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        color: colors.primaryDark,
-        fontWeight: 700,
-    },
-    grid: {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-        gap: 16,
+        padding: "0 16px",
+        overflowX: "auto",
+        scrollBehavior: "smooth",
     },
 };

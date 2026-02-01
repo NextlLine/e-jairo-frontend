@@ -31,7 +31,11 @@ export default function HomePage() {
         <div style={styles.searchBox}>
           <input placeholder="Nome, SUS, CPF..." style={styles.input} />
           <input placeholder="Tipo de observação..." style={styles.input} />
-          <button style={styles.searchBtn}>Pesquisar</button>
+          <button
+            style={styles.searchBtn}
+            onMouseDown={(e) => e.preventDefault()}
+            onFocus={(e) => e.currentTarget.style.outline = "none"}
+          >Pesquisar</button>
         </div>
       </section>
 

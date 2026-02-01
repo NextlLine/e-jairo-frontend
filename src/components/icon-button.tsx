@@ -10,7 +10,12 @@ export function IconButton({
     onClick?: () => void;
 }) {
     return (
-        <button style={styles.button} onClick={onClick}>
+        <button
+            style={styles.button}
+            onClick={onClick}
+            onMouseDown={(e) => e.preventDefault()}
+            onFocus={(e) => e.currentTarget.style.outline = "none"}
+        >
             <span style={styles.icon}>{icon}</span>
             <span style={styles.label}>{label}</span>
         </button>

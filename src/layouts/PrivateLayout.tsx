@@ -18,13 +18,14 @@ const styles: Record<string, CSSProperties> = {
   app: {
     height: "100vh",
     width: "100vw",
-
     display: "flex",
     flexDirection: "column",
     background: colors.background,
+    overflow: "hidden",
   },
   content: {
     flex: 1,
     width: "100%",
+    overflowY: "auto",
   },
 };
