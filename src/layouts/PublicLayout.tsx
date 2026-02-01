@@ -11,7 +11,7 @@ export default function PublicLayout() {
 
 const styles: Record<string, React.CSSProperties> = {
   app: {
-    minHeight: "100dvh",
+    height: "100dvh",
     width: "100vw",
     background: colors.background,
     display: "flex",
