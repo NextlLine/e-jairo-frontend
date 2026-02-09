@@ -16,10 +16,10 @@ export const customStyle: Record<string, CSSProperties> = {
   },
   page: {
     width: "100%",
-    // padding: "32px",
     padding: 20,
     boxSizing: "border-box",
     background: colors.background,
+    overflow: "hidden",
   },
   form: {
     display: "flex",

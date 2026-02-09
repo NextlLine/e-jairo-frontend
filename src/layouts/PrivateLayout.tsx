@@ -22,6 +22,7 @@ const styles: Record<string, CSSProperties> = {
     flexDirection: "column",
     background: colors.background,
     overflow: "hidden",
+    scrollbarColor: `${colors.primaryDark} ${colors.scrollbarBG}`,
   },
   content: {
     flex: 1,

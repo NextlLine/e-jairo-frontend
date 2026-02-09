@@ -11,20 +11,33 @@ import {
   FaFileAlt,
   FaSyringe,
   FaChartPie,
-  FaBell,
   FaSearch,
 } from "react-icons/fa";
-import { Card, IconCard } from "@/components/card";
+import { IconCard } from "@/components/card";
+import { AdvertisementCarroussel } from "@/components/AdvertiseCard";
+import type { Advertisement } from "@/types/advertisement";
 
 export default function HomePage() {
+  const advertisements: Advertisement[] = [
+    { id: "1", message: "Campanha de Vacinação contra a Gripe - 15 a 30 de Abril", createdAt: new Date("2024-04-15") },
+    { id: "2", message: "Atualização do Calendário de Vacinação Infantil", createdAt: new Date("2024-04-10") },
+    { id: "3", message: "Novas Diretrizes para Gestantes - Consulte seu Posto de Saúde", createdAt: new Date("2024-04-12") },
+    { id: "4", message: "Importância da Vacinação em Idosos - Proteja-se!", createdAt: new Date("2024-04-18") },
+    { id: "5", message: "Vacinação contra o HPV - Disponível para Adolescentes", createdAt: new Date("2024-04-20") },
+    { id: "6", message: "Campanha de Vacinação contra a Febre Amarela - Verifique sua Zona de Risco", createdAt: new Date("2024-04-22") },
+      { id: "1", message: "Campanha de Vacinação contra a Gripe - 15 a 30 de Abril", createdAt: new Date("2024-04-15") },
+    { id: "2", message: "Atualização do Calendário de Vacinação Infantil", createdAt: new Date("2024-04-10") },
+    { id: "3", message: "Novas Diretrizes para Gestantes - Consulte seu Posto de Saúde", createdAt: new Date("2024-04-12") },
+    { id: "4", message: "Importância da Vacinação em Idosos - Proteja-se!", createdAt: new Date("2024-04-18") },
+    { id: "5", message: "Vacinação contra o HPV - Disponível para Adolescentes", createdAt: new Date("2024-04-20") },
+    { id: "6", message: "Campanha de Vacinação contra a Febre Amarela - Verifique sua Zona de Risco", createdAt: new Date("2024-04-22") },
+  ];
+
+  
   return (
     <div style={customStyle.page}>
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}><FaBell /> Avisos</h2>
-        <div style={styles.cardRow}>
-          <Card label="Avisos Ativos" />
-        </div>
-      </section>
+
+     <AdvertisementCarroussel advertisements={advertisements} />
 
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}><FaSearch /> Pesquisa Rápida</h2>
@@ -83,10 +96,6 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 10,
     color: colors.primaryDark,
     fontWeight: 700,
-  },
-  cardRow: {
-    display: "flex",
-    gap: 20,
   },
   searchBox: {
     display: "flex",

@@ -36,7 +36,7 @@ export function MainHeader() {
             <div style={styles.shortcutsWrapper}>
                 <div style={styles.shortcutsScroll}>
                     <IconButton icon={<FaFilePdf />} label="PDFs" />
-                    <IconButton icon={<FaPills />} label="Pedidos" />
+                    <IconButton icon={<FaPills />} label="Farmácia" />
                     <IconButton icon={<FaMapMarkedAlt />} label="UBSs" />
                     <IconButton
                         icon={<FaBookMedical />}
@@ -56,6 +56,7 @@ const styles: Record<string, CSSProperties> = {
         background: colors.cardBG,
         display: "flex",
         flexDirection: "column",
+        borderRadius: "0 0 15px 15px",
     },
     topRow: {
         display: "flex",
@@ -79,7 +80,6 @@ const styles: Record<string, CSSProperties> = {
         fontWeight: 600,
     },
     shortcutsWrapper: {
-        // borderTop: `1px solid ${colors.border}`,
         padding: "10px 0",
     },
     shortcutsScroll: {
