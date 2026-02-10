@@ -2,7 +2,7 @@ import React from "react";
 import { router } from "@/router";
 import { signUpAction } from "./signup.action";
 import { customStyle } from "@/styles/custom-style";
-import Favicon from "../../../../public/favicon.png";
+import Favicon from "@/utils/exportFavIcon";
 
 export default function SignUpPage() {
   const [email, setEmail] = React.useState("");

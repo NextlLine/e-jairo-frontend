@@ -3,12 +3,14 @@ import {
     FaBookMedical,
     FaMapMarkedAlt,
     FaPills,
+    FaHome,
 } from "react-icons/fa";
 import { IconButton } from "@/components/icon-button";
 import { colors } from "@/styles/colors";
 import type { CSSProperties } from "react";
 import { router } from "@/router";
 import { auth } from "@/services/auth";
+import Favicon from "@/utils/exportFavIcon";
 
 export function MainHeader() {
     function handleLogout() {
@@ -23,10 +25,16 @@ export function MainHeader() {
         );
     };
 
+    const handleNavigationToHome = () => {
+        router.navigate("/home");
+    }
+
     return (
         <header style={styles.header}>
             <div style={styles.topRow}>
                 <div style={styles.logo}>E-JAIRO</div>
+
+                <img src={Favicon} style={styles.logoImg}  onClick={handleNavigationToHome}/>
 
                 <button style={styles.logoutButton} onClick={handleLogout}>
                     Sair
@@ -35,6 +43,7 @@ export function MainHeader() {
 
             <div style={styles.shortcutsWrapper}>
                 <div style={styles.shortcutsScroll}>
+                    <IconButton icon={<FaHome />} label="Página Inicial" onClick={handleNavigationToHome}/>
                     <IconButton icon={<FaFilePdf />} label="PDFs" />
                     <IconButton icon={<FaPills />} label="Farmácia" />
                     <IconButton icon={<FaMapMarkedAlt />} label="UBSs" />
@@ -70,6 +79,9 @@ const styles: Record<string, CSSProperties> = {
         color: colors.primaryDark,
         letterSpacing: 1,
     },
+    logoImg: {
+        height: '40px'
+    },
     logoutButton: {
         backgroundColor: colors.danger,
         color: colors.textButton,
@@ -89,4 +101,5 @@ const styles: Record<string, CSSProperties> = {
         overflowX: "auto",
         scrollBehavior: "smooth",
     },
+
 };

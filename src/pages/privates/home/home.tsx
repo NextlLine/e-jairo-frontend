@@ -14,25 +14,24 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { IconCard } from "@/components/card";
-import { AdvertisementCarroussel } from "@/components/AdvertiseCard";
+import { AdvertisementCarroussel } from "@/pages/privates/home/components/AdvertisementSection";
 import type { Advertisement } from "@/types/advertisement";
 
 export default function HomePage() {
   const advertisements: Advertisement[] = [
-    { id: "1", message: "Campanha de Vacinação contra a Gripe - 15 a 30 de Abril", createdAt: new Date("2024-04-15") },
-    { id: "2", message: "Atualização do Calendário de Vacinação Infantil", createdAt: new Date("2024-04-10") },
-    { id: "3", message: "Novas Diretrizes para Gestantes - Consulte seu Posto de Saúde", createdAt: new Date("2024-04-12") },
-    { id: "4", message: "Importância da Vacinação em Idosos - Proteja-se!", createdAt: new Date("2024-04-18") },
-    { id: "5", message: "Vacinação contra o HPV - Disponível para Adolescentes", createdAt: new Date("2024-04-20") },
-    { id: "6", message: "Campanha de Vacinação contra a Febre Amarela - Verifique sua Zona de Risco", createdAt: new Date("2024-04-22") },
-      { id: "1", message: "Campanha de Vacinação contra a Gripe - 15 a 30 de Abril", createdAt: new Date("2024-04-15") },
-    { id: "2", message: "Atualização do Calendário de Vacinação Infantil", createdAt: new Date("2024-04-10") },
-    { id: "3", message: "Novas Diretrizes para Gestantes - Consulte seu Posto de Saúde", createdAt: new Date("2024-04-12") },
-    { id: "4", message: "Importância da Vacinação em Idosos - Proteja-se!", createdAt: new Date("2024-04-18") },
-    { id: "5", message: "Vacinação contra o HPV - Disponível para Adolescentes", createdAt: new Date("2024-04-20") },
-    { id: "6", message: "Campanha de Vacinação contra a Febre Amarela - Verifique sua Zona de Risco", createdAt: new Date("2024-04-22") },
+    { id: "1", message: "Campanha de vacinação contra a gripe: 15 a 30 de abril"},
+    { id: "2", message: "Atualização do calendário de vacinação infantil disponível"},
+    { id: "3", message: "Pré-natal: novas orientações para gestantes no SUS"},
+    { id: "4", message: "Vacinação em idosos: reforços recomendados para 60+"},
+    { id: "5", message: "HPV: vacinação liberada para adolescentes de 9 a 14 anos"},
+    { id: "6", message: "Febre amarela: verifique se sua região é de risco"},
+    { id: "7", message: "Mutirão de saúde: exames e atualizações de cadastro"},
+    { id: "8", message: "Campanha de doação de sangue: participe no posto central"},
+    { id: "9", message: "Dia D da vacinação: atendimento ampliado no sábado"},
+    { id: "10", message: "Atualização do prontuário eletrônico: leve documento com foto"},
+    { id: "11", message: "Saúde da mulher: agendamento de preventivo disponível"},
+    { id: "12", message: "COVID-19: reforço bivalente para grupos prioritários"},
   ];
-
   
   return (
     <div style={customStyle.page}>
@@ -116,7 +115,7 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "12px 22px",
     borderRadius: 10,
     border: "none",
-    background: colors.primary,
+    background: colors.primaryDark,
     color: colors.textButton,
     cursor: "pointer",
     fontWeight: 600,

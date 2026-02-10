@@ -3,7 +3,7 @@ import { router } from "@/router";
 import { confirmCodeAction } from "./confirm-code.action";
 import { customStyle } from "@/styles/custom-style";
 import { useLocation } from "react-router-dom";
-import Favicon from "../../../../public/favicon.png";
+import Favicon from "@/utils/exportFavIcon";
 
 export default function ConfirmCodePage() {
   const location = useLocation();

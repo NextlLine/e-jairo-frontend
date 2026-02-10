@@ -16,4 +16,7 @@ export const colors = {
   textButton: "#ffffff",
 
   scrollbarBG: "#e2e8f0",
+
+  modalBBg: "rgba(15, 23, 42, 0.5)",
+  modalBG: "#ffffff",
 };
