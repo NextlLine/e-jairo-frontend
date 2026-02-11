@@ -79,7 +79,6 @@ export default function HomePage() {
           <IconCard icon={<FaNotesMedical />} label="Prontuários" />
           <IconCard icon={<FaSyringe />} label="Vacinação" />
           <IconCard icon={<FaFileAlt />} label="Receituário" />
-          <IconCard icon={<FaClipboardList />} label="Formulários" />
         </div>
       </section>
     </div>
