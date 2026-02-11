@@ -10,9 +10,9 @@ const signInSchema = z.object({
 export const signInAction = async (email: string, password: string) => {
   const parsed = signInSchema.safeParse({ email, password });
 
-if (!parsed.success) {
-  throw new Error(parsed.error.issues[0].message);
-}
+  if (!parsed.success) {
+    throw new Error(parsed.error.issues[0].message);
+  }
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
 

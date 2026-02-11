@@ -3,9 +3,16 @@ import { colors } from "@/styles/colors";
 import { FaBell, FaChevronLeft, FaChevronRight, FaPlus } from "react-icons/fa";
 import type { Advertisement } from "@/types/advertisement";
 import Modal from "@/components/modal";
+import { createAddAdvertisementAction, loadAdvertisementsAction } from "../home.action";
+import { customStyle } from "@/styles/custom-style";
 
 export function AdvertisementCarroussel({ advertisements }: { advertisements: Advertisement[] }) {
     const scrollRef = useRef<HTMLDivElement>(null);
+    const showArrows = advertisements.length > 3;
+    const [showModal, setShowModal] = useState(false);
+    const [advertisementMessage, setAdvertisementMessage] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
     function scroll(direction: "left" | "right") {
         if (!scrollRef.current) return;
@@ -23,8 +30,21 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
         setShowModal(true);
     }
 
-    const showArrows = advertisements.length > 3;
-    const [showModal, setShowModal] = useState(false);
+    async function handleSubmitNewAd() {
+        try {
+            setError(null);
+            setLoading(true)
+
+            await createAddAdvertisementAction(advertisementMessage);
+            await loadAdvertisementsAction();
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Erro inesperado");
+        }
+        finally {
+            setLoading(false);
+            setShowModal(false);
+        }
+    }
 
     return (
         <section style={styles.section}>
@@ -89,11 +109,16 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
                     <h2 >Adicionar Novo Aviso</h2>
                 </section >
 
-                <form style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }}>
+                <form style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }} onSubmit={handleSubmitNewAd}>
                     <textarea
                         placeholder="Mensagem do aviso"
-                        style={{ width: "100%", height: 100, padding: 10, borderRadius: 8, border: `1px solid ${colors.border}`, fontSize: 14, resize: "none", boxSizing: "border-box" }}
+                        style={styles.input}
+                        value={advertisementMessage}
+                        onChange={(e) => setAdvertisementMessage(e.currentTarget.value)}
                     />
+
+                    {error && <div style={customStyle.error}>{error}</div>}
+
                     <div style={{ display: "flex", justifyContent: "space-between", }}>
                         <button
                             type="button"
@@ -109,9 +134,9 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
                             style={{ ...styles.addAdvBtn, alignSelf: "flex-end" }}
                             onMouseDown={(e) => e.preventDefault()}
                             onFocus={(e) => e.currentTarget.style.outline = "none"}
-                            onSubmit={() => setShowModal(false)}
+                            onClick={handleSubmitNewAd}
                         >
-                            Adicionar Aviso
+                            {loading ? "Criando..." : "Adicionar Aviso"}
                         </button>
                     </div>
                 </form>
@@ -200,12 +225,24 @@ const styles: Record<string, React.CSSProperties> = {
         fontWeight: 600,
     },
     cancelBtn: {
-         padding: "12px 22px",
+        padding: "12px 22px",
         borderRadius: 10,
         border: "none",
         background: colors.danger,
         color: colors.textButton,
         cursor: "pointer",
         fontWeight: 600,
+    },
+    input: {
+        width: "100%",
+        height: 100,
+        padding: 10,
+        borderRadius: 8,
+        border: `1px solid ${colors.border}`,
+        color: colors.text,
+        background: colors.background,
+        fontSize: 14,
+        resize: "none",
+        boxSizing: "border-box",
     }
 };

@@ -3,7 +3,9 @@ export const auth = {
     const token = localStorage.getItem("token");
     return !!token;
   },
-
+  getToken() {
+    return localStorage.getItem("token");
+  },
   signIn(token: string) {
     localStorage.setItem("token", token);
   },

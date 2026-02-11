@@ -16,27 +16,28 @@ import {
 import { IconCard } from "@/components/card";
 import { AdvertisementCarroussel } from "@/pages/privates/home/components/AdvertisementSection";
 import type { Advertisement } from "@/types/advertisement";
+import { loadAdvertisementsAction } from "./home.action";
 
 export default function HomePage() {
-  const advertisements: Advertisement[] = [
-    { id: "1", message: "Campanha de vacinação contra a gripe: 15 a 30 de abril"},
-    { id: "2", message: "Atualização do calendário de vacinação infantil disponível"},
-    { id: "3", message: "Pré-natal: novas orientações para gestantes no SUS"},
-    { id: "4", message: "Vacinação em idosos: reforços recomendados para 60+"},
-    { id: "5", message: "HPV: vacinação liberada para adolescentes de 9 a 14 anos"},
-    { id: "6", message: "Febre amarela: verifique se sua região é de risco"},
-    { id: "7", message: "Mutirão de saúde: exames e atualizações de cadastro"},
-    { id: "8", message: "Campanha de doação de sangue: participe no posto central"},
-    { id: "9", message: "Dia D da vacinação: atendimento ampliado no sábado"},
-    { id: "10", message: "Atualização do prontuário eletrônico: leve documento com foto"},
-    { id: "11", message: "Saúde da mulher: agendamento de preventivo disponível"},
-    { id: "12", message: "COVID-19: reforço bivalente para grupos prioritários"},
-  ];
-  
+
+  const [advertisements, setAdvertisements] = React.useState<Advertisement[]>([]);
+
+  async function handleLoadAdvertisements() {
+    const ads = await loadAdvertisementsAction();
+
+    if (ads.length > 0) {
+        setAdvertisements(ads);
+    }
+  }
+
+  React.useEffect(() => {
+    handleLoadAdvertisements();
+  }, []);
+
   return (
     <div style={customStyle.page}>
 
-     <AdvertisementCarroussel advertisements={advertisements} />
+      <AdvertisementCarroussel advertisements={advertisements} />
 
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}><FaSearch /> Pesquisa Rápida</h2>
