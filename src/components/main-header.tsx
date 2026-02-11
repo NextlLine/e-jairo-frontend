@@ -3,12 +3,14 @@ import {
     FaBookMedical,
     FaMapMarkedAlt,
     FaPills,
+    FaHome,
 } from "react-icons/fa";
 import { IconButton } from "@/components/icon-button";
 import { colors } from "@/styles/colors";
 import type { CSSProperties } from "react";
 import { router } from "@/router";
 import { auth } from "@/services/auth";
+import Favicon from "@/utils/exportFavIcon";
 
 export function MainHeader() {
     function handleLogout() {
@@ -23,10 +25,16 @@ export function MainHeader() {
         );
     };
 
+    const handleNavigationToHome = () => {
+        router.navigate("/home");
+    }
+
     return (
         <header style={styles.header}>
             <div style={styles.topRow}>
                 <div style={styles.logo}>E-JAIRO</div>
+
+                <img src={Favicon} style={styles.logoImg}  onClick={handleNavigationToHome}/>
 
                 <button style={styles.logoutButton} onClick={handleLogout}>
                     Sair
@@ -35,8 +43,9 @@ export function MainHeader() {
 
             <div style={styles.shortcutsWrapper}>
                 <div style={styles.shortcutsScroll}>
+                    <IconButton icon={<FaHome />} label="Página Inicial" onClick={handleNavigationToHome}/>
                     <IconButton icon={<FaFilePdf />} label="PDFs" />
-                    <IconButton icon={<FaPills />} label="Pedidos" />
+                    <IconButton icon={<FaPills />} label="Farmácia" />
                     <IconButton icon={<FaMapMarkedAlt />} label="UBSs" />
                     <IconButton
                         icon={<FaBookMedical />}
@@ -56,6 +65,7 @@ const styles: Record<string, CSSProperties> = {
         background: colors.cardBG,
         display: "flex",
         flexDirection: "column",
+        borderRadius: "0 0 15px 15px",
     },
     topRow: {
         display: "flex",
@@ -69,6 +79,9 @@ const styles: Record<string, CSSProperties> = {
         color: colors.primaryDark,
         letterSpacing: 1,
     },
+    logoImg: {
+        height: '40px'
+    },
     logoutButton: {
         backgroundColor: colors.danger,
         color: colors.textButton,
@@ -79,7 +92,6 @@ const styles: Record<string, CSSProperties> = {
         fontWeight: 600,
     },
     shortcutsWrapper: {
-        // borderTop: `1px solid ${colors.border}`,
         padding: "10px 0",
     },
     shortcutsScroll: {
@@ -89,4 +101,5 @@ const styles: Record<string, CSSProperties> = {
         overflowX: "auto",
         scrollBehavior: "smooth",
     },
+
 };

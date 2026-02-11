@@ -11,20 +11,33 @@ import {
   FaFileAlt,
   FaSyringe,
   FaChartPie,
-  FaBell,
   FaSearch,
 } from "react-icons/fa";
-import { Card, IconCard } from "@/components/card";
+import { IconCard } from "@/components/card";
+import { AdvertisementCarroussel } from "@/pages/privates/home/components/AdvertisementSection";
+import type { Advertisement } from "@/types/advertisement";
+import { loadAdvertisementsAction } from "./home.action";
 
 export default function HomePage() {
+
+  const [advertisements, setAdvertisements] = React.useState<Advertisement[]>([]);
+
+  async function handleLoadAdvertisements() {
+    const ads = await loadAdvertisementsAction();
+
+    if (ads.length > 0) {
+        setAdvertisements(ads);
+    }
+  }
+
+  React.useEffect(() => {
+    handleLoadAdvertisements();
+  }, []);
+
   return (
     <div style={customStyle.page}>
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}><FaBell /> Avisos</h2>
-        <div style={styles.cardRow}>
-          <Card label="Avisos Ativos" />
-        </div>
-      </section>
+
+      <AdvertisementCarroussel advertisements={advertisements} />
 
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}><FaSearch /> Pesquisa Rápida</h2>
@@ -84,10 +97,6 @@ const styles: Record<string, React.CSSProperties> = {
     color: colors.primaryDark,
     fontWeight: 700,
   },
-  cardRow: {
-    display: "flex",
-    gap: 20,
-  },
   searchBox: {
     display: "flex",
     gap: 10,
@@ -107,7 +116,7 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "12px 22px",
     borderRadius: 10,
     border: "none",
-    background: colors.primary,
+    background: colors.primaryDark,
     color: colors.textButton,
     cursor: "pointer",
     fontWeight: 600,

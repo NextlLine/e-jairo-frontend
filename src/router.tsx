@@ -2,10 +2,8 @@ import {
   createBrowserRouter,
   redirect,
 } from "react-router-dom";
-
 import PublicLayout from "./layouts/PublicLayout";
 import PrivateLayout from "./layouts/PrivateLayout";
-
 import { auth } from "./services/auth";
 import SignInPage from "./pages/publics/signIn/signin";
 import HomePage from "./pages/privates/home/home";
@@ -40,7 +38,7 @@ export const router = createBrowserRouter([
     element: <PrivateLayout />,
     loader: privateLoader,
     children: [
-      { path: "home", element: <HomePage /> }, 
+      { path: "home", element: <HomePage /> },
     ],
   },
 

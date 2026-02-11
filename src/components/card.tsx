@@ -1,7 +1,7 @@
 import React from "react";
 import { colors } from "@/styles/colors";
 
-export function Card({ label }: { label: string }) {
+export function SimpleCard({ label }: { label: string }) {
   return <div style={styles.simpleCard}>{label}</div>;
 }
 

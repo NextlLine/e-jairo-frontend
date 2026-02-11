@@ -3,7 +3,7 @@ import { router } from "@/router";
 import { signInAction } from "./signin.action";
 import { customStyle } from "@/styles/custom-style";
 import { colors } from "@/styles/colors";
-import Favicon from "../../../../public/favicon.png";
+import Favicon from "@/utils/exportFavIcon";
 
 export default function SignInPage() {
   const [email, setEmail] = React.useState("");
