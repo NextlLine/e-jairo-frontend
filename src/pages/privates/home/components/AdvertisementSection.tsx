@@ -1,18 +1,21 @@
 import { useRef, useState } from "react";
 import { colors } from "@/styles/colors";
-import { FaBell, FaChevronLeft, FaChevronRight, FaPlus } from "react-icons/fa";
+import { FaBell, FaChevronLeft, FaChevronRight, FaPlus, FaTrash } from "react-icons/fa";
 import type { Advertisement } from "@/types/advertisement";
 import Modal from "@/components/modal";
-import { createAddAdvertisementAction, loadAdvertisementsAction } from "../home.action";
+import { createAddAdvertisementAction, deleteAdvertisementAction, loadAdvertisementsAction } from "../home.action";
 import { customStyle } from "@/styles/custom-style";
 
 export function AdvertisementCarroussel({ advertisements }: { advertisements: Advertisement[] }) {
     const scrollRef = useRef<HTMLDivElement>(null);
     const showArrows = advertisements.length > 3;
-    const [showModal, setShowModal] = useState(false);
+    const [showAddModal, setShowAddModal] = useState(false);
     const [advertisementMessage, setAdvertisementMessage] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const [adToDelete, setAdToDelete] = useState<Advertisement | null>(null);
+    const [deleting, setDeleting] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     function scroll(direction: "left" | "right") {
         if (!scrollRef.current) return;
@@ -27,7 +30,7 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
     }
 
     function handleAddAdvertisement() {
-        setShowModal(true);
+        setShowAddModal(true);
     }
 
     async function handleSubmitNewAd() {
@@ -42,28 +45,53 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
         }
         finally {
             setLoading(false);
-            setShowModal(false);
+            setShowAddModal(false);
         }
+    }
+
+    async function confirmDeleteAd() {
+        if (!adToDelete) return;
+
+        try {
+            setDeleting(true);
+            await deleteAdvertisementAction(adToDelete.id);
+            await loadAdvertisementsAction();
+            setAdToDelete(null);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Erro ao excluir");
+        } finally {
+            setDeleting(false);
+        }
+    }
+
+    function handleDeleteAd(ad: Advertisement) {
+        setAdToDelete(ad);
     }
 
     return (
         <section style={styles.section}>
-
             <div style={styles.header}>
                 <h2 style={styles.sectionTitle}>
                     <FaBell /> Avisos
                 </h2>
 
-                <button
-                    style={styles.addAdvBtn}
-                    onMouseDown={(e) => e.preventDefault()}
-                    onFocus={(e) => e.currentTarget.style.outline = "none"}
-                    onClick={handleAddAdvertisement}
-                >
-                    <FaPlus /> Adicionar Aviso
-                </button>
+                <div style={{ display: "flex", gap: 10 }}>
+                    <button
+                        style={styles.editBtn}
+                        onClick={() => setIsEditing(prev => !prev)}
+                    >
+                        {isEditing ? "Concluir edição" : "Editar"}
+                    </button>
 
+                    <button
+                        style={styles.addAdvBtn}
+                        onClick={handleAddAdvertisement}
+                    >
+                        <FaPlus /> Adicionar Aviso
+                    </button>
+                </div>
             </div>
+
 
             <div style={styles.wrapper}>
                 {showArrows && (
@@ -83,6 +111,18 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
                     ) : (
                         advertisements.map((ad) => (
                             <div key={ad.id} style={styles.simpleCard}>
+                                {isEditing && (
+                                    <button
+                                        style={styles.deleteBtn}
+                                        onClick={() => handleDeleteAd(ad)}
+                                        title="Excluir aviso"
+                                    >
+                                        <FaTrash />
+                                    </button>
+                                )}
+
+
+
                                 <div>{ad.message}</div>
                             </div>
                         ))
@@ -102,8 +142,8 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
             </div>
 
             <Modal
-                isOpen={showModal}
-                onRequestClose={() => setShowModal(false)}
+                isOpen={showAddModal}
+                onRequestClose={() => setShowAddModal(false)}
             >
                 <section style={styles.modalSectionTitle}>
                     <h2 >Adicionar Novo Aviso</h2>
@@ -125,7 +165,7 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
                             style={{ ...styles.cancelBtn, alignSelf: "flex-end" }}
                             onMouseDown={(e) => e.preventDefault()}
                             onFocus={(e) => e.currentTarget.style.outline = "none"}
-                            onClick={() => setShowModal(false)}
+                            onClick={() => setShowAddModal(false)}
                         >
                             Cancelar
                         </button>
@@ -141,6 +181,43 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
                     </div>
                 </form>
             </Modal>
+
+            <Modal
+                isOpen={!!adToDelete}
+                onRequestClose={() => setAdToDelete(null)}
+                style={{ width: '100%' }}
+            >
+                <section style={styles.modalSectionTitle}>
+                    <h2>Excluir Aviso</h2>
+                </section>
+
+                <div style={{ marginTop: 15, textAlign: "center" }}>
+                    Tem certeza que deseja excluir este aviso?
+                </div>
+
+                <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: 20
+                }}>
+                    <button
+                        type="button"
+                        style={styles.cancelBtn}
+                        onClick={() => setAdToDelete(null)}
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="button"
+                        style={styles.deleteConfirmBtn}
+                        onClick={confirmDeleteAd}
+                    >
+                        {deleting ? "Excluindo..." : "Excluir"}
+                    </button>
+                </div>
+            </Modal>
+
         </section>
     );
 }
@@ -176,7 +253,6 @@ const styles: Record<string, React.CSSProperties> = {
         display: "flex",
         alignItems: "center",
     },
-
     cardRow: {
         display: "flex",
         gap: 20,
@@ -185,6 +261,7 @@ const styles: Record<string, React.CSSProperties> = {
         padding: "10px 40px",
     },
     simpleCard: {
+        position: "relative",
         background: colors.cardBG,
         padding: 20,
         borderRadius: 12,
@@ -199,13 +276,18 @@ const styles: Record<string, React.CSSProperties> = {
     },
     arrows: {
         height: "100%",
+        width: 60,
         background: "transparent",
         color: colors.primaryDark,
         border: "none",
         cursor: "pointer",
         position: "absolute",
-        borderRadius: "0%",
+        zIndex: 5,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
+
     arrowLeft: {
         left: 0,
         background: `linear-gradient(to right, ${colors.background} 50%, rgba(255, 255, 255, 0))`,
@@ -228,7 +310,7 @@ const styles: Record<string, React.CSSProperties> = {
         padding: "12px 22px",
         borderRadius: 10,
         border: "none",
-        background: colors.danger,
+        background: colors.primaryDark,
         color: colors.textButton,
         cursor: "pointer",
         fontWeight: 600,
@@ -244,5 +326,41 @@ const styles: Record<string, React.CSSProperties> = {
         fontSize: 14,
         resize: "none",
         boxSizing: "border-box",
-    }
+    },
+    deleteBtn: {
+        position: "absolute",
+        top: 8,
+        right: 10,
+        background: "transparent",
+        border: "none",
+        color: colors.danger,
+        fontSize: 14,
+        cursor: "pointer",
+        padding: 6,
+        borderRadius: 6,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "all 0.2s ease",
+        zIndex: 2,
+    },
+    deleteConfirmBtn: {
+        padding: "12px 22px",
+        borderRadius: 10,
+        border: "none",
+        background: "#b91c1c",
+        color: "white",
+        cursor: "pointer",
+        fontWeight: 600,
+    },
+    editBtn: {
+        padding: "12px 22px",
+        borderRadius: 10,
+        border: `1px solid ${colors.primaryDark}`,
+        background: "transparent",
+        color: colors.primaryDark,
+        cursor: "pointer",
+        fontWeight: 600,
+    },
+
 };

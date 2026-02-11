@@ -60,3 +60,27 @@ export const loadAdvertisementsAction = async (): Promise<Advertisement[]> => {
 
     return await response.json();
 };
+
+export const deleteAdvertisementAction = async (id: string) => {
+    try {
+        const baseUrl = import.meta.env.VITE_BASE_URL;
+
+        if (!baseUrl) {
+            throw new Error("URL da API não configurada");
+        }
+
+        const response = await fetch(`${baseUrl}/advertisement/delete/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth.getToken()}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Falha ao excluir aviso");
+        }
+    } catch (err) {
+        throw new Error(err instanceof Error ? err.message : "Erro ao excluir aviso");
+    }
+};
