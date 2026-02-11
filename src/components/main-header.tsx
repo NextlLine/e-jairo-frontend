@@ -1,9 +1,9 @@
 import {
-    FaFilePdf,
     FaBookMedical,
     FaMapMarkedAlt,
     FaPills,
     FaHome,
+    FaClipboardList,
 } from "react-icons/fa";
 import { IconButton } from "@/components/icon-button";
 import { colors } from "@/styles/colors";
@@ -29,6 +29,10 @@ export function MainHeader() {
         router.navigate("/home");
     }
 
+    const handleFormClick = () => {
+        router.navigate("/forms");
+    }
+
     return (
         <header style={styles.header}>
             <div style={styles.topRow}>
@@ -43,8 +47,15 @@ export function MainHeader() {
 
             <div style={styles.shortcutsWrapper}>
                 <div style={styles.shortcutsScroll}>
-                    <IconButton icon={<FaHome />} label="Página Inicial" onClick={handleNavigationToHome}/>
-                    <IconButton icon={<FaFilePdf />} label="PDFs" />
+                    <IconButton 
+                    icon={<FaHome />} 
+                    label="Página Inicial" 
+                    onClick={handleNavigationToHome}/>
+                    <IconButton 
+                    icon={<FaClipboardList />} 
+                    label="Formulários" 
+                    onClick={handleFormClick}
+                    />
                     <IconButton icon={<FaPills />} label="Farmácia" />
                     <IconButton icon={<FaMapMarkedAlt />} label="UBSs" />
                     <IconButton

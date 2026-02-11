@@ -3,10 +3,17 @@ import { colors } from "@/styles/colors";
 import { FaBell, FaChevronLeft, FaChevronRight, FaPlus, FaTrash } from "react-icons/fa";
 import type { Advertisement } from "@/types/advertisement";
 import Modal from "@/components/modal";
-import { createAddAdvertisementAction, deleteAdvertisementAction, loadAdvertisementsAction } from "../home.action";
+import { createAddAdvertisementAction, deleteAdvertisementAction } from "../home.action";
 import { customStyle } from "@/styles/custom-style";
 
-export function AdvertisementCarroussel({ advertisements }: { advertisements: Advertisement[] }) {
+export function AdvertisementCarroussel({
+    advertisements,
+    onReload,
+}: {
+    advertisements: Advertisement[];
+    onReload: () => Promise<void>;
+}) {
+
     const scrollRef = useRef<HTMLDivElement>(null);
     const showArrows = advertisements.length > 3;
     const [showAddModal, setShowAddModal] = useState(false);
@@ -36,18 +43,20 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
     async function handleSubmitNewAd() {
         try {
             setError(null);
-            setLoading(true)
+            setLoading(true);
 
             await createAddAdvertisementAction(advertisementMessage);
-            await loadAdvertisementsAction();
+            setAdvertisementMessage("");
+            await onReload();
+            setShowAddModal(false);
+
         } catch (err) {
             setError(err instanceof Error ? err.message : "Erro inesperado");
-        }
-        finally {
+        } finally {
             setLoading(false);
-            setShowAddModal(false);
         }
     }
+
 
     async function confirmDeleteAd() {
         if (!adToDelete) return;
@@ -55,8 +64,10 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
         try {
             setDeleting(true);
             await deleteAdvertisementAction(adToDelete.id);
-            await loadAdvertisementsAction();
+
+            await onReload();
             setAdToDelete(null);
+
         } catch (err) {
             setError(err instanceof Error ? err.message : "Erro ao excluir");
         } finally {
