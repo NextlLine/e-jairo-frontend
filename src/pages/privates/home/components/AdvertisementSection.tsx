@@ -109,7 +109,7 @@ export function AdvertisementCarroussel({ advertisements }: { advertisements: Ad
                     <h2 >Adicionar Novo Aviso</h2>
                 </section >
 
-                <form style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }} onSubmit={handleSubmitNewAd}>
+                <form style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }}>
                     <textarea
                         placeholder="Mensagem do aviso"
                         style={styles.input}
