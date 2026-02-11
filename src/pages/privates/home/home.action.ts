@@ -30,11 +30,11 @@ export const createAddAdvertisementAction = async (message: string): Promise<Adv
         try {
             const errorData = await response.json();
             errorMessage = errorData.message || errorMessage;
-        } catch {}
+        } catch { }
         throw new Error(errorMessage);
     }
 
-    return await response.json(); 
+    return await response.json();
 };
 
 
@@ -54,7 +54,7 @@ export const loadAdvertisementsAction = async (): Promise<Advertisement[]> => {
         try {
             const errorData = await response.json();
             errorMessage = errorData.message || errorMessage;
-        } catch {}
+        } catch { }
         throw new Error(errorMessage);
     }
 

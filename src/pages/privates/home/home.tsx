@@ -24,11 +24,9 @@ export default function HomePage() {
 
   async function handleLoadAdvertisements() {
     const ads = await loadAdvertisementsAction();
-
-    if (ads.length > 0) {
-        setAdvertisements(ads);
-    }
+    setAdvertisements(ads); 
   }
+
 
   React.useEffect(() => {
     handleLoadAdvertisements();
@@ -37,7 +35,10 @@ export default function HomePage() {
   return (
     <div style={customStyle.page}>
 
-      <AdvertisementCarroussel advertisements={advertisements} />
+      <AdvertisementCarroussel
+        advertisements={advertisements}
+        onReload={handleLoadAdvertisements}
+      />
 
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}><FaSearch /> Pesquisa Rápida</h2>
